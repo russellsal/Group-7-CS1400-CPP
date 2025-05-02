@@ -7,19 +7,23 @@ public class Main {
 // need try catch statement for inputs that are not perfect squares 
         System.out.println("Insert number of Individuals (Insert perfect squares ONLY ex. 4, 64, 81):");
         int numOfPpl = scnr.nextInt();
-
-        /* not implemented yet
-        System.out.println("Insert number of times simulation will be ran:");
+        System.out.println();
+        
+        
+        System.out.println("Insert number (integer) of times simulation will be ran:");
         int TimeStep = scnr.nextInt();
-        */
+        System.out.println();
 
         System.out.println("Insert probability of infection (a percent written as a decimal, ex. 0.45 from 0 to 1)");
         double probOfInfection = scnr.nextDouble();
+        System.out.println();
 
         /* not implemented yet
         System.out.println("Insert probability of recovery (a percent written as a decimal, ex. 0.45)");
         double probOfRecovery = scnr.nextDouble();
         */
+
+        System.out.println();
 
         int rows = getRowsColumns(numOfPpl);
 
@@ -30,7 +34,7 @@ public class Main {
 
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < columns; ++j) {
-                array[i][j] = "Not Infected " + "(" + (i) + "," + (j) + ")";
+                array[i][j] = "R";
             }
         }
 
@@ -39,23 +43,33 @@ public class Main {
         int columnOfS = getRanNum(getRowsColumns(numOfPpl));
         array[rowOfS][columnOfS] = "S " + "(" + (rowOfS) + "," + (columnOfS) + ")" ;
 
-//prints array for testing
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < columns; ++j) {
                 System.out.println(array[i][j]);
             }
         }
-        System.out.println("1st test done");
-    ScanArray(array, probOfInfection);
 
-//print again after first round will make loop instead later just made this for testing
-     for (int i = 0; i < rows; ++i) {
+        System.out.println();
+        System.out.println("Ran 1 time(s).");
+        System.out.println();
+
+        for (int k = 2; k <= TimeStep; ++k) {
+//prints array for testing
+        ScanArray(array, probOfInfection);
+        Infect(array);
+        for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < columns; ++j) {
                 System.out.println(array[i][j]);
             }
         }
+        System.out.println();
+        System.out.println("Ran " + k + " time(s).");
+        System.out.println();
+    
 
-    }
+}
+
+}
 
 
 
@@ -93,6 +107,29 @@ public static void ScanArray(String[][] array, double probofInfection) {
 
     }
 }
+}
+
+// infection of neighbors
+public static void Infect(String[][] array) {
+    for (int i = 0; i < array.length; ++i) {
+       for (int j = 0; j < array.length; ++j) {
+        if ((array[i][j]).equals("I " + "(" + (i) + "," + (j) + ")")) {
+            if ((i -1 >= 0) && ((array[i-1][j]).equals("R"))) {
+                array[i-1][j] = "S " + "(" + (i-1) + "," + (j) + ")";
+            }
+            if ((i + 1 < array.length) && ((array[i+1][j]).equals("R"))) {
+                array[i+1][j] = "S " + "(" + (i+1) + "," + (j) + ")";
+            }
+            if ((j - 1 >= 0) && ((array[i][j-j]).equals("R"))) {
+                array[i][j -1] = "S " + "(" + (i) + "," + (j-1) + ")";
+            }
+            if ((j + 1 < array[i].length) && ((array[i][j+1]).equals("R"))) {
+                array[i][j+1] = "S " + "(" + (i) + "," + (j+1) + ")";
+            }
+
+        }
+       }
+    }
 }
 
 
