@@ -18,7 +18,7 @@ public class Main {
         double probOfInfection = scnr.nextDouble();
         System.out.println();
 
-        /* not implemented yet
+        /* not implemented yet needs a method aswell
         System.out.println("Insert probability of recovery (a percent written as a decimal, ex. 0.45)");
         double probOfRecovery = scnr.nextDouble();
         */
@@ -54,13 +54,18 @@ public class Main {
         System.out.println();
 
         for (int k = 2; k <= TimeStep; ++k) {
-//prints array for testing
+
         ScanArray(array, probOfInfection);
         Infect(array);
+
+        /* prints array for testing we dont need to leave this code in, its only for testing we just need to print 
+        how many people are infect after each trial run*/
+        // delete v once finished
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < columns; ++j) {
                 System.out.println(array[i][j]);
             }
+        // delete ^
         }
         System.out.println();
         System.out.println("Ran " + k + " time(s).");
